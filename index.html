@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎓 Jon & Ali — Student Loan Freedom</title>
+<title>⚖️ Jon & Ali — MD/JD Debt Freedom</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
@@ -250,11 +249,17 @@
 
 <header>
   <div class="logo-area">
-    <h1>🎓 Jon &amp; Ali — Freedom Dashboard</h1>
-    <p>Student Loan Paydown Tracker · Nelnet · Standard Repayment</p>
+    <h1>⚖️ Jon & Ali — MD · JD · Debt Free</h1>
+    <p>The price of expertise, being paid back one lump sum at a time 🩺📜</p>
   </div>
   <div class="date-badge">📅 Updated <span id="current-date"></span></div>
 </header>
+
+<div style="position:relative;z-index:10;padding:16px 40px 0;display:flex;gap:10px;flex-wrap:wrap;">
+  <div style="background:rgba(200,245,68,.08);border:1px solid rgba(200,245,68,.25);border-radius:10px;padding:7px 16px;font-size:.75rem;font-weight:700;color:var(--lime);font-family:'Unbounded',sans-serif;letter-spacing:.08em;">🩺 JON · MD</div>
+  <div style="background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.25);border-radius:10px;padding:7px 16px;font-size:.75rem;font-weight:700;color:var(--cyan);font-family:'Unbounded',sans-serif;letter-spacing:.08em;">⚖️ ALI · JD</div>
+  <div style="background:rgba(155,93,229,.08);border:1px solid rgba(155,93,229,.25);border-radius:10px;padding:7px 16px;font-size:.75rem;color:var(--muted);letter-spacing:.05em;">Years of school → years of paydown. Worth every penny.</div>
+</div>
 
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('dashboard',event)">📊 Dashboard</button>
@@ -270,37 +275,37 @@
     <div class="section-title">📊 Current Snapshot — March 2026</div>
     <div class="hero-stats">
       <div class="stat-card pink">
-        <div class="label">Combined Balance</div>
-        <div class="value">$216,490</div>
-        <div class="sub">Jon $197,945 · Ali $18,545</div>
+        <div class="label">Current Balance</div>
+        <div class="value">$197,945</div>
+        <div class="sub">Outstanding Principal: $196,027</div>
         <div class="emoji-bg">🎓</div>
       </div>
       <div class="stat-card lime">
         <div class="label">Total Principal Paid</div>
-        <div class="value">$204,040</div>
-        <div class="sub">Jon $201,042 · Ali $2,998</div>
+        <div class="value">$201,042</div>
+        <div class="sub">Across 28 Nelnet payments to date</div>
         <div class="emoji-bg">💰</div>
       </div>
       <div class="stat-card yellow">
-        <div class="label">% Loans Eliminated</div>
-        <div class="value">48.7%</div>
-        <div class="sub">Of $418,612 combined original</div>
+        <div class="label">% Loan Eliminated</div>
+        <div class="value">50.6%</div>
+        <div class="sub">Of ~$397,069 original balance</div>
         <div class="emoji-bg">🎯</div>
       </div>
       <div class="stat-card cyan">
-        <div class="label">Jon's Interest Paid</div>
+        <div class="label">Interest Paid (All Time)</div>
         <div class="value">$51,143</div>
         <div class="sub">Of $252,186 total paid · 20% was interest</div>
         <div class="emoji-bg">📈</div>
       </div>
       <div class="stat-card orange">
-        <div class="label">Jon's Last Payment</div>
+        <div class="label">Last Payment</div>
         <div class="value">$2,161</div>
         <div class="sub">Mar 6 regular + $26.6K lump sum Mar 2</div>
         <div class="emoji-bg">⚡</div>
       </div>
       <div class="stat-card purple">
-        <div class="label">Jon: Past The Halfway Mark</div>
+        <div class="label">Past The Halfway Mark</div>
         <div class="value">50.6%</div>
         <div class="sub">↓ $201K of $397K cleared 🥳</div>
         <div class="emoji-bg">🎉</div>
@@ -314,9 +319,9 @@
     <div class="dual-tank-card">
 
       <div class="dual-tank-primary">
-        <div class="dual-tank-eyebrow">JON'S LOAN</div>
+        <div class="dual-tank-eyebrow">JON · MD</div>
         <div class="dual-tank-heading">Student Loan · Nelnet</div>
-        <div class="dual-tank-sub">Standard Repayment · Regular payments + aggressive lump sums 🔥</div>
+        <div class="dual-tank-sub">The cost of medical school — being demolished one lump sum at a time 🩺🔥</div>
         <div class="dual-primary-body">
           <div class="tank-wrap">
             <div class="tank-title-label">PAYDOWN PROGRESS</div>
@@ -349,17 +354,18 @@
             </div>
             <div class="tank-seg-label">Each block = $5,000 paid off</div>
             <div class="tank-segments" id="tank-segments-jon"></div>
-            <div class="tank-motivator">🔥 Over halfway! Jon has crushed $201K in principal — more cleared than remains. Keep stacking those lump sums.</div>
+            <div class="tank-motivator">🩺 Med school debt, halfway buried. $201K cleared — more paid off than remains. Doctors save lives; Jon's saving his financial future too.</div>
           </div>
         </div>
       </div>
 
       <div class="dual-tank-divider"></div>
 
+      <!-- SECOND TANK — placeholder for future loan data -->
       <div class="dual-tank-secondary">
-        <div class="dual-tank-eyebrow secondary-eye">ALI'S LOAN</div>
-        <div class="dual-tank-heading secondary-head">Student Loan · 4.74% APR</div>
-        <div class="dual-tank-sub">Steady $261/mo — Jon's payoff will supercharge this 📅</div>
+        <div class="dual-tank-eyebrow secondary-eye">ALI · JD</div>
+        <div class="dual-tank-heading secondary-head">— Add loan data here —</div>
+        <div class="dual-tank-sub">The cost of law school — ready to track when data is added ⚖️📋</div>
         <div class="dual-secondary-body">
           <div class="tank-wrap">
             <div class="tank-title-label">PAYDOWN PROGRESS</div>
@@ -374,8 +380,8 @@
                   <div class="tick"><span>0%</span></div>
                 </div>
                 <div class="tank-fill-track">
-                  <div class="tank-fill tank-fill-secondary" id="tank-fill-ali">
-                    <div class="tank-pct-label tank-pct-secondary" id="tank-pct-ali">13.9%</div>
+                  <div class="tank-fill tank-fill-secondary" id="tank-fill-second">
+                    <div class="tank-pct-label tank-pct-secondary" id="tank-pct-second">—</div>
                   </div>
                 </div>
               </div>
@@ -385,14 +391,14 @@
           </div>
           <div class="tank-stats">
             <div class="tank-progress-rows">
-              <div class="tank-row"><div class="tank-row-label">Original Balance</div><div class="tank-row-value pink">$21,543</div></div>
-              <div class="tank-row"><div class="tank-row-label">Current Balance</div><div class="tank-row-value orange">$18,545</div></div>
-              <div class="tank-row"><div class="tank-row-label">Paid to Principal</div><div class="tank-row-value cyan">$2,998</div></div>
-              <div class="tank-row"><div class="tank-row-label">% Complete</div><div class="tank-row-value lime">13.9%</div></div>
+              <div class="tank-row"><div class="tank-row-label">Original Balance</div><div class="tank-row-value pink">—</div></div>
+              <div class="tank-row"><div class="tank-row-label">Current Balance</div><div class="tank-row-value orange">—</div></div>
+              <div class="tank-row"><div class="tank-row-label">Paid to Principal</div><div class="tank-row-value cyan">—</div></div>
+              <div class="tank-row"><div class="tank-row-label">% Complete</div><div class="tank-row-value lime">—</div></div>
             </div>
-            <div class="tank-seg-label">Each block = $500 paid off</div>
-            <div class="tank-segments" id="tank-segments-ali"></div>
-            <div class="tank-motivator sec-motivator">📅 Consistent payments at 4.74%. When Jon's loan is gone, the snowball hits this and it falls fast.</div>
+            <div class="tank-seg-label">Each block = $— paid off</div>
+            <div class="tank-segments" id="tank-segments-second"></div>
+            <div class="tank-motivator sec-motivator">⚖️ Law school debt slot ready. Add Ali's loan data to bring this tank to life.</div>
           </div>
         </div>
       </div>
@@ -411,8 +417,8 @@
     <div class="section-title">📉 Visual Progress</div>
     <div class="charts-grid">
       <div class="chart-card" style="grid-column:1/-1;">
-        <div class="donut-card-title" style="margin-bottom:4px;">Combined Balance — Dec 2025 → Mar 2026</div>
-        <div class="donut-card-sub" style="margin-bottom:16px;">Jon's lump sums are creating massive monthly drops. Hover for details.</div>
+        <div class="donut-card-title" style="margin-bottom:4px;">Balance Over Time — Dec 2025 → Mar 2026</div>
+        <div class="donut-card-sub" style="margin-bottom:16px;">Lump sums creating massive monthly drops. Hover for details.</div>
         <canvas id="debtTrendChart" style="max-height:240px;"></canvas>
       </div>
       <div class="chart-card">
@@ -428,18 +434,19 @@
         </div>
         <div class="donut-legend" id="legend-jon"></div>
       </div>
+      <!-- SECOND LOAN DONUT — placeholder -->
       <div class="chart-card">
-        <div class="donut-card-title">Ali's Loan Progress</div>
+        <div class="donut-card-title">Second Loan Progress</div>
         <div class="donut-card-sub">Paid vs. Remaining</div>
         <div class="donut-wrap">
-          <canvas id="pieChartAli"></canvas>
-          <div class="donut-center" id="donut-center-ali">
-            <div class="dc-label">Remaining</div>
-            <div class="dc-value">$18,545</div>
-            <div class="dc-pct">of $21,543 original</div>
+          <canvas id="pieChartSecond"></canvas>
+          <div class="donut-center" id="donut-center-second">
+            <div class="dc-label">No Data Yet</div>
+            <div class="dc-value">—</div>
+            <div class="dc-pct">Add loan data to populate</div>
           </div>
         </div>
-        <div class="donut-legend" id="legend-ali"></div>
+        <div class="donut-legend" id="legend-second"></div>
       </div>
     </div>
   </div>
@@ -455,7 +462,7 @@
     <div class="section-title">📅 Payoff Projection</div>
     <div class="projection-card">
       <div class="projection-intro">
-        Based on current balances and regular payment amounts only — no lump sums assumed. Jon's actual lump-sum pace (~$25K/month) would eliminate his loan far sooner. Ali gets the snowball when Jon's done.
+        Based on current balance and regular payment amounts only — no lump sums assumed. Jon's actual lump-sum pace (~$25K/month) would eliminate the loan far sooner. Med school was worth it; let's prove it mathematically.
       </div>
       <div id="projection-timeline"></div>
       <div class="projection-summary" id="projection-summary"></div>
@@ -475,7 +482,7 @@
             <label>Choose Loan</label>
             <select id="calc-debt" onchange="prefillCalc()">
               <option value="jon">Jon's Student Loan — $197,945 @ ~7.25%</option>
-              <option value="ali">Ali's Student Loan — $18,545 @ 4.74%</option>
+              <!-- Add second loan option here when data is available -->
             </select>
           </div>
           <div class="input-group">
@@ -531,8 +538,7 @@
           <tr>
             <th>Month</th>
             <th>Jon's Loan</th>
-            <th>Ali's Loan</th>
-            <th>Combined</th>
+            <th>Second Loan</th>
             <th>Est. Monthly Interest</th>
             <th>Jon's Extra Payments</th>
           </tr>
@@ -543,7 +549,7 @@
   </div>
 
   <div style="text-align:center;padding:20px 0 40px;color:var(--muted);font-size:.85rem;">
-    Made with 💚 · You're past the halfway point — keep crushing it! 🚀
+    Made with 💚 · MD + JD = biggest student loans, biggest payoffs · Keep crushing it! 🩺⚖️
   </div>
 </main>
 </div>
@@ -558,14 +564,14 @@
           <div class="section-title" style="margin-bottom:6px;">📋 Monthly Brief</div>
           <div style="font-size:.82rem;color:var(--muted);">Wins, focus areas, and problems to solve each month.</div>
         </div>
-        <div style="font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:700;color:var(--lime)">March 2026</div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:700;color:var(--lime)">March 2026 · MD/JD Update</div>
       </div>
 
       <div class="brief-stats-row">
-        <div class="brief-stat"><div class="brief-stat-label">Jon's Balance</div><div class="brief-stat-value" style="color:var(--lime)">$197,945</div></div>
-        <div class="brief-stat"><div class="brief-stat-label">Ali's Balance</div><div class="brief-stat-value" style="color:var(--cyan)">$18,545</div></div>
-        <div class="brief-stat"><div class="brief-stat-label">Combined</div><div class="brief-stat-value" style="color:var(--pink)">$216,490</div></div>
-        <div class="brief-stat"><div class="brief-stat-label">Jon % Paid Off</div><div class="brief-stat-value" style="color:var(--orange)">50.6%</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Current Balance</div><div class="brief-stat-value" style="color:var(--lime)">$197,945</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Principal Paid</div><div class="brief-stat-value" style="color:var(--cyan)">$201,042</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">% Paid Off</div><div class="brief-stat-value" style="color:var(--orange)">50.6%</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Interest Paid (All Time)</div><div class="brief-stat-value" style="color:var(--pink)">$51,143</div></div>
       </div>
 
       <div class="brief-how-to">
@@ -583,8 +589,8 @@
         <div class="brief-item">
           <div class="brief-item-num">1</div>
           <div>
-            <div class="brief-item-text"><strong>Jon Officially Past the Halfway Point</strong></div>
-            <div class="brief-item-sub">$201,042 paid to principal on a ~$397K original loan — Jon has now cleared more than half his balance. The remaining $197,945 is officially less than what's been paid off. A massive milestone.</div>
+            <div class="brief-item-text"><strong>Jon (MD) Officially Past the Halfway Point</strong></div>
+            <div class="brief-item-sub">$201,042 paid to principal on a ~$397K original loan — the cost of medical school is more than half gone. The remaining $197,945 is officially less than what's been paid off. A massive milestone for any physician.</div>
           </div>
         </div>
         <div class="brief-item">
@@ -615,8 +621,8 @@
         <div class="brief-item">
           <div class="brief-item-num">2</div>
           <div>
-            <div class="brief-item-text"><strong>Plan the Snowball to Ali</strong></div>
-            <div class="brief-item-sub">When Jon's loan clears, $2,780+/month in regular payments frees up — immediately redirect it to Ali's $18,545 loan. At that rate plus Ali's current $261/mo, the loan would be gone in under 6 months.</div>
+            <div class="brief-item-text"><strong>Plan What Happens at $0</strong></div>
+            <div class="brief-item-sub">When Jon's loan clears, $2,780+/month in regular payments frees up. Have a plan ready for where that cash goes the moment the balance hits zero — redirect immediately, don't let it drift.</div>
           </div>
         </div>
         <div class="brief-item">
@@ -640,8 +646,8 @@
         <div class="brief-item">
           <div class="brief-item-num">2</div>
           <div>
-            <div class="brief-item-text"><strong>Ali's Loan at Minimum Only</strong></div>
-            <div class="brief-item-sub">Ali's $261/mo at 4.74% on $18,545 has a ~7 year payoff horizon at minimum payments. This is acceptable while Jon's loan is the priority — but have a plan to accelerate once the snowball arrives. Don't let this linger needlessly.</div>
+            <div class="brief-item-text"><strong>$1,918 Unpaid Accrued Interest</strong></div>
+            <div class="brief-item-sub">As of Mar 13, Nelnet shows $1,918.25 in accrued interest outstanding. This applies before principal on the next payment. Keep regular payments consistent to stay ahead of the accrual rate.</div>
           </div>
         </div>
       </div>
@@ -664,31 +670,32 @@ const JON_APR     = 7.25; // estimated
 const JON_PMT     = 2161.40;
 const JON_EXTRA   = 619.03;
 
-const ALI_START   = 21543.24;
-const ALI_CURRENT = 18545.00;
-const ALI_PAID_P  = 2998.24;
-const ALI_APR     = 4.74;
-const ALI_PMT     = 261;
+// Second loan — placeholder (add values here when data is available)
+// const LOAN2_START   = 0;
+// const LOAN2_CURRENT = 0;
+// const LOAN2_PAID_P  = 0;
+// const LOAN2_APR     = 0;
+// const LOAN2_PMT     = 0;
 
 const monthlyData = [
-  {month:"Oct 2024", jon:"—",        ali:"$21,543", total:"—",         int:"—",       extra:"—"},
-  {month:"Nov 2024", jon:"—",        ali:"$21,360", total:"—",         int:"—",       extra:"—"},
-  {month:"Dec 2024", jon:"—",        ali:"$21,179", total:"—",         int:"—",       extra:"—"},
-  {month:"Jan 2025", jon:"—",        ali:"$20,997", total:"—",         int:"—",       extra:"—"},
-  {month:"Feb 2025", jon:"—",        ali:"$20,807", total:"—",         int:"—",       extra:"—"},
-  {month:"Mar 2025", jon:"—",        ali:"$20,624", total:"—",         int:"—",       extra:"—"},
-  {month:"Apr 2025", jon:"—",        ali:"$20,437", total:"—",         int:"—",       extra:"—"},
-  {month:"May 2025", jon:"—",        ali:"$20,253", total:"—",         int:"—",       extra:"—"},
-  {month:"Jun 2025", jon:"—",        ali:"$20,065", total:"—",         int:"—",       extra:"—"},
-  {month:"Jul 2025", jon:"—",        ali:"$19,879", total:"—",         int:"—",       extra:"—"},
-  {month:"Aug 2025", jon:"—",        ali:"$19,692", total:"—",         int:"—",       extra:"—"},
-  {month:"Sep 2025", jon:"—",        ali:"$19,502", total:"—",         int:"—",       extra:"—"},
-  {month:"Oct 2025", jon:"—",        ali:"$19,314", total:"—",         int:"—",       extra:"—"},
-  {month:"Nov 2025", jon:"—",        ali:"$19,123", total:"—",         int:"—",       extra:"—"},
-  {month:"Dec 2025", jon:"$280,440", ali:"$18,933", total:"$299,373",  int:"~$1,720", extra:"$36,627 to principal"},
-  {month:"Jan 2026", jon:"$252,286", ali:"$18,743", total:"$271,029",  int:"~$1,560", extra:"$25,000 lump sum"},
-  {month:"Feb 2026", jon:"$226,071", ali:"$18,545", total:"$244,616",  int:"~$1,400", extra:"$23,884 to principal"},
-  {month:"Mar 2026 ⬅",jon:"$197,945",ali:"~$18,300",total:"~$216,245",int:"partial",  extra:"$25,552 to principal"},
+  {month:"Oct 2024",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Nov 2024",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Dec 2024",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Jan 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Feb 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Mar 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Apr 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"May 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Jun 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Jul 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Aug 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Sep 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Oct 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Nov 2025",    jon:"—",         loan2:"—", int:"—",       extra:"—"},
+  {month:"Dec 2025",    jon:"$280,440",  loan2:"—", int:"~$1,720", extra:"$36,627 to principal"},
+  {month:"Jan 2026",    jon:"$252,286",  loan2:"—", int:"~$1,560", extra:"$25,000 lump sum"},
+  {month:"Feb 2026",    jon:"$226,071",  loan2:"—", int:"~$1,400", extra:"$23,884 to principal"},
+  {month:"Mar 2026 ⬅", jon:"$197,945",  loan2:"—", int:"partial", extra:"$25,552 to principal"},
 ];
 
 // ── INIT ──────────────────────────────────────────────────────
@@ -709,17 +716,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderTanks() {
   const tankH = 260;
   const jonPct = (JON_PAID_P / JON_START) * 100;
-  const aliPct = (ALI_PAID_P / ALI_START)  * 100;
 
   const jf = document.getElementById('tank-fill-jon');
   jf.style.height = '0px';
   document.getElementById('tank-pct-jon').textContent = jonPct.toFixed(1)+'%';
   setTimeout(()=>{ jf.style.height = Math.max(6,(jonPct/100)*tankH)+'px'; },400);
-
-  const af = document.getElementById('tank-fill-ali');
-  af.style.height = '0px';
-  document.getElementById('tank-pct-ali').textContent = aliPct.toFixed(1)+'%';
-  setTimeout(()=>{ af.style.height = Math.max(4,(aliPct/100)*tankH)+'px'; },600);
 
   // Jon segments: $5K each
   const jSeg=5000, jTotal=Math.ceil(JON_START/jSeg), jDone=Math.floor(JON_PAID_P/jSeg);
@@ -731,15 +732,8 @@ function renderTanks() {
     jc.appendChild(s);
   }
 
-  // Ali segments: $500 each
-  const aSeg=500, aTotal=Math.ceil(ALI_START/aSeg), aDone=Math.floor(ALI_PAID_P/aSeg);
-  const ac = document.getElementById('tank-segments-ali');
-  for(let i=0;i<aTotal;i++){
-    const s=document.createElement('div');
-    s.className='seg-block '+(i<aDone?'done-cyan':'todo');
-    s.title=i<aDone?`✅ $${((i+1)*aSeg).toLocaleString()} cleared`:`$${((i+1)*aSeg).toLocaleString()} target`;
-    ac.appendChild(s);
-  }
+  // Second loan tank — no data yet, leave empty
+  // Populate when LOAN2 data is available
 }
 
 // ── LOAN CARDS ────────────────────────────────────────────────
@@ -749,18 +743,11 @@ function renderDebtCards() {
       name:"Jon's Student Loan",badge:"badge-jon",badgeLabel:"Jon · Nelnet",color:"lime",
       current:JON_CURRENT,start:JON_START,paid:JON_PAID_P,
       payment:JON_PMT,apr:JON_APR,due:"6th (auto)",
-      sub:"28 payments to date · Standard Repayment",
-      note:"🔥 Over halfway — the remaining balance is smaller than what's already been paid!",
+      sub:"Jon · MD · 28 Nelnet payments to date · Standard Repayment",
+      note:"🩺 The cost of becoming a doctor — and you're over halfway done paying it back. Keep stacking those lump sums.",
       extra:"+ $619/mo regular · + ~$25K/mo lump sums"
     },
-    {
-      name:"Ali's Student Loan",badge:"badge-ali",badgeLabel:"Ali",color:"cyan",
-      current:ALI_CURRENT,start:ALI_START,paid:ALI_PAID_P,
-      payment:ALI_PMT,apr:ALI_APR,due:"5th",
-      sub:"Standard Repayment · Down from $21,543",
-      note:"📅 Steady progress — Jon's snowball will demolish this when the time comes!",
-      extra:"Minimum payments now; snowball incoming"
-    }
+    // Add second loan object here when data is available
   ];
 
   document.getElementById('debt-cards').innerHTML = loans.map(d => {
@@ -813,17 +800,13 @@ function renderCharts() {
       </div>`).join('');
   }
 
-  // Trend
+  // Trend — Jon only
   const tLabels=["Dec '25","Jan '26","Feb '26","Mar '26"];
   const jonT=[280440,252286,226071,197945];
-  const aliT=[18933,18743,18545,18300];
-  const comT=jonT.map((v,i)=>v+aliT[i]);
   new Chart(document.getElementById('debtTrendChart').getContext('2d'),{
     type:'line',
     data:{labels:tLabels,datasets:[
       {label:"Jon's Loan",data:jonT,borderColor:'#c8f544',backgroundColor:'rgba(200,245,68,.07)',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:'#c8f544',tension:.3,fill:true},
-      {label:"Ali's Loan",data:aliT,borderColor:'#00f5d4',backgroundColor:'rgba(0,245,212,.07)',borderWidth:2,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:'#00f5d4',tension:.3,fill:true},
-      {label:"Combined",data:comT,borderColor:'#ff4d6d',backgroundColor:'rgba(255,77,109,.04)',borderWidth:2,borderDash:[5,3],pointRadius:4,pointHoverRadius:7,pointBackgroundColor:'#ff4d6d',tension:.3,fill:false}
     ]},
     options:{responsive:true,interaction:{mode:'index',intersect:false},
       plugins:{legend:{position:'top',labels:{color:'#7a7a9a',font:{family:'DM Sans',size:11},boxWidth:12,padding:16}},
@@ -847,20 +830,8 @@ function renderCharts() {
   });
   buildLeg('legend-jon',jLabels,jColors,jVals);
 
-  // Ali donut
-  const aLabels=['Paid to Principal','Remaining'];
-  const aVals=[Math.round(ALI_PAID_P),Math.round(ALI_CURRENT)];
-  const aColors=['#00f5d4','rgba(0,245,212,.12)'];
-  new Chart(document.getElementById('pieChartAli').getContext('2d'),{
-    type:'doughnut',
-    data:{labels:aLabels,datasets:[{data:aVals,backgroundColor:aColors,borderWidth:3,borderColor:'#12121f',hoverBorderWidth:0,hoverOffset:14}]},
-    options:{responsive:true,cutout:'65%',plugins:{legend:noLeg,tooltip:{...ttip,callbacks:{label:ctx=>` $${ctx.parsed.toLocaleString()}`}}},
-      onHover:(evt,els)=>{
-        if(els.length){const i=els[0].index;upCenter('donut-center-ali',aLabels[i],'$'+aVals[i].toLocaleString(),((aVals[i]/ALI_START)*100).toFixed(1)+'% of original');}
-        else upCenter('donut-center-ali','Remaining','$'+Math.round(ALI_CURRENT).toLocaleString(),'of $'+Math.round(ALI_START).toLocaleString()+' original');
-      }}
-  });
-  buildLeg('legend-ali',aLabels,aColors,aVals);
+  // Second loan donut — placeholder, no data yet
+  // Populate when LOAN2 data is available
 }
 
 // ── TABLE ─────────────────────────────────────────────────────
@@ -870,8 +841,7 @@ function renderTable(){
     return `<tr class="${last?'latest-row':''}">
       <td>${last?'<strong>'+r.month+'</strong>':r.month}</td>
       <td class="${r.jon!=='—'?'td-green':'td-muted'}">${r.jon}</td>
-      <td class="${r.ali!=='—'?'td-cyan':'td-muted'}">${r.ali}</td>
-      <td class="${r.total!=='—'&&r.total!=='partial'?'':'td-muted'}">${r.total}</td>
+      <td class="td-muted">${r.loan2}</td>
       <td class="td-muted">${r.int}</td>
       <td style="font-size:.8rem;" class="${r.extra!=='—'?'':'td-muted'}">${r.extra}</td>
     </tr>`;
@@ -881,14 +851,14 @@ function renderTable(){
 // ── MILESTONES ────────────────────────────────────────────────
 function renderMilestones(){
   const ms=[
-    {icon:'🎉',status:'achieved',title:'Jon Over Halfway!',amount:'50.6% paid off',detail:'$201K of $397K original cleared'},
-    {icon:'💰',status:'achieved',title:'$252K Total Paid',amount:'$252,185 lifetime',detail:"Jon's paid over a quarter million dollars!"},
-    {icon:'📉',status:'achieved',title:'Jon Under $200K',amount:'$197,945 current',detail:'Crossed below $200K in March 2026 🔥'},
-    {icon:'🚀',status:'upcoming',title:'Jon Under $150K',amount:'$47,945 to go',detail:'At current lump-sum pace: ~2 months'},
-    {icon:'🏆',status:'upcoming',title:'Jon Under $100K',amount:'$97,945 to go',detail:'The sub-100K milestone — huge moment'},
-    {icon:'💡',status:'upcoming',title:"Ali Under $15K",amount:'$3,545 to go',detail:'At $261/mo: ~14 months at minimum'},
-    {icon:'🌟',status:'future',title:"Jon's Loan Gone",amount:'$197,945 remaining',detail:'Est. late 2026 at lump-sum pace'},
-    {icon:'🎓',status:'future',title:'Completely Debt Free',amount:'$216,490 remaining',detail:'Both loans at zero — celebrate big! 🎉'},
+    {icon:'🩺',status:'achieved',title:'Over Halfway Done!',amount:'50.6% paid off',detail:'MD debt: $201K of $397K original cleared'},
+    {icon:'💰',status:'achieved',title:'$252K Total Paid',amount:'$252,185 lifetime',detail:'More than a quarter million dollars paid!'},
+    {icon:'📉',status:'achieved',title:'Under $200K Balance',amount:'$197,945 current',detail:'Medical school debt below $200K 🔥'},
+    {icon:'🚀',status:'upcoming',title:'Under $150K',amount:'$47,945 to go',detail:'At current lump-sum pace: ~2 months'},
+    {icon:'🏆',status:'upcoming',title:'Under $100K',amount:'$97,945 to go',detail:'Sub-100K — a landmark moment for any MD'},
+    {icon:'🎯',status:'upcoming',title:'Under $50K',amount:'$147,945 to go',detail:'The home stretch — finish line in sight'},
+    {icon:'⚖️',status:'future',title:"Ali's Loan: $0",amount:'Add data to track',detail:'Law school debt — gone'},
+    {icon:'🎓',status:'future',title:'MD + JD = Debt Free',amount:'The real diploma 🎉',detail:'Both loans zeroed — celebrate huge'},
   ];
   document.getElementById('milestone-grid').innerHTML = ms.map(m=>`
     <div class="milestone-card ${m.status}">
@@ -903,7 +873,7 @@ function renderMilestones(){
 function renderProjection(){
   const loans=[
     {name:"Jon's Student Loan",balance:JON_CURRENT,payment:JON_PMT+JON_EXTRA,apr:JON_APR,color:'#c8f544'},
-    {name:"Ali's Student Loan",balance:ALI_CURRENT,payment:ALI_PMT,apr:ALI_APR,color:'#00f5d4'},
+    // Add second loan here when data is available
   ];
 
   function mtp(bal,pmt,apr){
@@ -964,10 +934,10 @@ function renderProjection(){
   const last=results[results.length-1];
   const fd=last.pd.toLocaleString('en-US',{month:'long',year:'numeric'});
   document.getElementById('projection-summary').innerHTML=[
-    {label:'Both Loans Free',value:fd,color:'var(--lime)'},
-    {label:'Total Months',value:last.months+' months',color:'var(--cyan)'},
-    {label:'Interest Still Owed',value:'$'+Math.round(totInt).toLocaleString(),color:'var(--pink)'},
-    {label:"Jon's Payoff Est.",value:results[0].pd.toLocaleString('en-US',{month:'short',year:'numeric'}),color:'var(--orange)'},
+    {label:'Loan Free Date',         value:fd,                                          color:'var(--lime)'},
+    {label:'Months Remaining',       value:last.months+' months',                       color:'var(--cyan)'},
+    {label:'Interest Still Owed',    value:'$'+Math.round(totInt).toLocaleString(),      color:'var(--pink)'},
+    {label:'At Min Payments Only',   value:results[0].pd.toLocaleString('en-US',{month:'short',year:'numeric'}), color:'var(--orange)'},
   ].map(s=>`
     <div class="proj-summary-stat">
       <div class="proj-summary-label">${s.label}</div>
@@ -977,18 +947,12 @@ function renderProjection(){
 
 // ── CALCULATOR ────────────────────────────────────────────────
 function prefillCalc(){
-  const v=document.getElementById('calc-debt').value;
-  if(v==='jon'){
-    document.getElementById('calc-balance').value=197945;
-    document.getElementById('calc-apr').value=7.25;
-    document.getElementById('calc-payment').value=2161;
-    document.getElementById('calc-extra').value=619;
-  } else {
-    document.getElementById('calc-balance').value=18545;
-    document.getElementById('calc-apr').value=4.74;
-    document.getElementById('calc-payment').value=261;
-    document.getElementById('calc-extra').value=100;
-  }
+  // Jon is the only loan — values pre-filled
+  document.getElementById('calc-balance').value=197945;
+  document.getElementById('calc-apr').value=7.25;
+  document.getElementById('calc-payment').value=2161;
+  document.getElementById('calc-extra').value=619;
+  // Add second loan prefill here when data is available
 }
 
 function calculate(){
