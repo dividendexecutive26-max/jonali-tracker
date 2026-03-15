@@ -1,1 +1,1054 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Jon & Ali — Student Loan Freedom</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg:#0a0a12;--surface:#12121f;--surface2:#1a1a2e;
+    --lime:#c8f544;--cyan:#00f5d4;--pink:#ff4d6d;
+    --orange:#ff8c42;--purple:#9b5de5;--yellow:#ffe347;
+    --text:#f0f0f8;--muted:#7a7a9a;--border:rgba(255,255,255,0.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:
+    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(200,245,68,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%,rgba(0,245,212,.06) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%,rgba(155,93,229,.04) 0%,transparent 70%);
+    pointer-events:none;z-index:0;}
+  header{position:relative;z-index:10;padding:40px 40px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+  .logo-area h1{font-family:'Unbounded',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);font-weight:900;line-height:1;
+    background:linear-gradient(135deg,var(--lime) 0%,var(--cyan) 50%,var(--purple) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .logo-area p{font-size:.9rem;color:var(--muted);margin-top:4px;}
+  .date-badge{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 20px;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .date-badge span{color:var(--lime);font-weight:600;}
+  .tab-nav{position:relative;z-index:10;display:flex;gap:8px;padding:24px 40px 0;}
+  .tab-btn{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;}
+  .tab-btn.active{background:rgba(200,245,68,.12);border-color:rgba(200,245,68,.3);color:var(--lime);}
+  .tab-btn:hover:not(.active){color:var(--text);}
+  .tab-panel{display:none;}.tab-panel.active{display:block;}
+  main{position:relative;z-index:10;padding:40px;display:grid;gap:24px;max-width:1400px;margin:0 auto;}
+  .section-block{animation:fadeUp .5s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .section-block:nth-child(1){animation-delay:.05s}
+  .section-block:nth-child(2){animation-delay:.10s}
+  .section-block:nth-child(3){animation-delay:.15s}
+  .section-block:nth-child(4){animation-delay:.20s}
+  .section-block:nth-child(5){animation-delay:.25s}
+  .section-title{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;color:var(--text);letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* HERO STATS */
+  .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:default;}
+  .stat-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4);}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:20px 20px 0 0;}
+  .stat-card.lime::before{background:var(--lime)}.stat-card.cyan::before{background:var(--cyan)}
+  .stat-card.pink::before{background:var(--pink)}.stat-card.orange::before{background:var(--orange)}
+  .stat-card.purple::before{background:var(--purple)}.stat-card.yellow::before{background:var(--yellow)}
+  .stat-card .label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:12px;}
+  .stat-card .value{font-family:'Unbounded',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;line-height:1;margin-bottom:8px;}
+  .stat-card.lime .value{color:var(--lime)}.stat-card.cyan .value{color:var(--cyan)}
+  .stat-card.pink .value{color:var(--pink)}.stat-card.orange .value{color:var(--orange)}
+  .stat-card.purple .value{color:var(--purple)}.stat-card.yellow .value{color:var(--yellow)}
+  .stat-card .sub{font-size:.82rem;color:var(--muted);}
+  .stat-card .emoji-bg{position:absolute;right:20px;bottom:16px;font-size:3rem;opacity:.15;}
+
+  /* TANKS */
+  .dual-tank-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px;display:grid;grid-template-columns:1fr auto 1fr;overflow:hidden;}
+  @media(max-width:900px){.dual-tank-card{grid-template-columns:1fr;}.dual-tank-divider{width:100%;height:1px;margin:28px 0;}}
+  .dual-tank-divider{width:1px;background:var(--border);margin:0 36px;align-self:stretch;}
+  .dual-tank-primary,.dual-tank-secondary{display:flex;flex-direction:column;gap:16px;}
+  .dual-tank-eyebrow{font-family:'Unbounded',sans-serif;font-size:.55rem;letter-spacing:.2em;color:var(--lime);text-transform:uppercase;}
+  .secondary-eye{color:var(--cyan);}
+  .dual-tank-heading{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;color:var(--text);line-height:1.2;}
+  .secondary-head{font-size:.85rem;}
+  .dual-tank-sub{font-size:.82rem;color:var(--muted);}
+  .dual-primary-body,.dual-secondary-body{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;}
+  .tank-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+  .tank-title-label{font-family:'Unbounded',sans-serif;font-size:.52rem;letter-spacing:.18em;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
+  .tank-vessel{display:flex;flex-direction:column;align-items:center;}
+  .tank-nozzle{width:38px;height:14px;background:linear-gradient(180deg,#2a2a3e,#1e1e30);border-radius:5px 5px 0 0;border:1px solid rgba(255,255,255,.1);border-bottom:none;position:relative;z-index:3;}
+  .tank-nozzle::after{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);width:14px;height:3px;background:rgba(200,245,68,.25);border-radius:2px;}
+  .tank-body-lg{width:110px;height:260px;background:linear-gradient(160deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 60%,rgba(0,0,0,.1) 100%);border:1.5px solid rgba(255,255,255,.12);border-top:none;border-bottom:none;position:relative;overflow:hidden;}
+  .tank-body-lg::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:6px;background:linear-gradient(180deg,rgba(255,255,255,.12),transparent);border-radius:4px;z-index:10;pointer-events:none;}
+  .tank-body-lg::after{content:'';position:absolute;right:0;top:0;bottom:0;width:8px;background:rgba(0,0,0,.15);z-index:10;pointer-events:none;}
+  .tank-ticks{position:absolute;right:10px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;z-index:12;pointer-events:none;}
+  .tick{display:flex;align-items:center;gap:3px;}
+  .tick::before{content:'';display:block;width:6px;height:1px;background:rgba(255,255,255,.2);}
+  .tick span{font-size:.5rem;color:rgba(255,255,255,.22);font-family:'DM Sans',sans-serif;white-space:nowrap;}
+  .tank-fill-track{position:absolute;bottom:0;left:0;right:0;height:100%;display:flex;align-items:flex-end;}
+  .tank-fill{width:100%;position:relative;transition:height 2s cubic-bezier(.16,1,.3,1);min-height:5px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden;}
+  .tank-fill-primary{background:linear-gradient(180deg,rgba(200,245,68,.75) 0%,rgba(140,210,30,.9) 60%,rgba(100,180,20,1) 100%);}
+  .tank-fill-secondary{background:linear-gradient(180deg,rgba(0,245,212,.4) 0%,rgba(0,180,160,.55) 100%);}
+  .tank-fill-primary::before,.tank-fill-secondary::before{content:'';position:absolute;top:-5px;left:-20%;width:140%;height:12px;background:radial-gradient(ellipse 50% 100% at 50% 100%,rgba(255,255,255,.25),transparent);animation:wave 3s ease-in-out infinite;z-index:3;}
+  @keyframes wave{0%,100%{transform:translateX(0) scaleY(1)}50%{transform:translateX(5%) scaleY(1.4)}}
+  .tank-pct-label{font-family:'Unbounded',sans-serif;font-size:.7rem;font-weight:900;color:rgba(15,35,5,.85);position:relative;z-index:4;margin-top:5px;}
+  .tank-pct-secondary{font-size:.6rem;margin-top:3px;color:rgba(0,60,50,.9);}
+  .tank-base{width:100%;height:12px;background:linear-gradient(180deg,#1e1e30,#16162a);border-radius:0 0 8px 8px;border:1.5px solid rgba(255,255,255,.1);border-top:none;display:flex;align-items:center;justify-content:center;}
+  .tank-base-line{width:55%;height:2px;background:rgba(200,245,68,.2);border-radius:2px;}
+  .tank-base-line-cyan{background:rgba(0,245,212,.2);}
+  .tank-shadow{width:70px;height:8px;background:radial-gradient(ellipse 100% 100% at 50% 0%,rgba(0,0,0,.4),transparent);border-radius:50%;margin-top:2px;}
+  .tank-stats{display:flex;flex-direction:column;gap:12px;flex:1;min-width:160px;}
+  .tank-progress-rows{display:flex;flex-direction:column;gap:8px;}
+  .tank-row{display:flex;justify-content:space-between;align-items:center;}
+  .tank-row-label{font-size:.78rem;color:var(--muted);}
+  .tank-row-value{font-family:'Unbounded',sans-serif;font-size:.88rem;font-weight:700;}
+  .tank-row-value.lime{color:var(--lime)}.tank-row-value.cyan{color:var(--cyan)}
+  .tank-row-value.pink{color:var(--pink)}.tank-row-value.orange{color:var(--orange)}
+  .tank-seg-label{font-size:.68rem;color:var(--muted);}
+  .tank-segments{display:flex;flex-wrap:wrap;gap:3px;}
+  .seg-block{width:12px;height:12px;border-radius:2px;}
+  .seg-block.done{background:var(--lime);opacity:.85;}
+  .seg-block.done-cyan{background:var(--cyan);opacity:.85;}
+  .seg-block.todo{background:rgba(255,255,255,.07);}
+  .tank-motivator{font-size:.78rem;color:var(--muted);line-height:1.5;margin-top:4px;border-left:3px solid rgba(200,245,68,.3);padding-left:10px;}
+  .sec-motivator{border-color:rgba(0,245,212,.3);}
+
+  /* DEBT CARDS */
+  .debt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;}
+  .debt-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;transition:transform .3s,box-shadow .3s;}
+  .debt-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3);}
+  .debt-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+  .debt-name{font-family:'Unbounded',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);}
+  .debt-sub{font-size:.75rem;color:var(--muted);margin-top:4px;}
+  .debt-badge{font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;}
+  .badge-jon{background:rgba(200,245,68,.15);color:var(--lime);border:1px solid rgba(200,245,68,.3);}
+  .badge-ali{background:rgba(0,245,212,.15);color:var(--cyan);border:1px solid rgba(0,245,212,.3);}
+  .debt-amount{font-family:'Unbounded',sans-serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+  .debt-interest{font-size:.82rem;color:var(--muted);margin-bottom:20px;}
+  .debt-interest strong{color:var(--pink);}
+  .progress-bar-wrap{background:rgba(255,255,255,.06);border-radius:8px;height:10px;overflow:hidden;margin-bottom:8px;}
+  .progress-bar{height:100%;border-radius:8px;position:relative;overflow:hidden;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+  .progress-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite;}
+  @keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  .progress-bar.lime{background:linear-gradient(90deg,var(--lime),#a8e027);}
+  .progress-bar.cyan{background:linear-gradient(90deg,var(--cyan),#00c4a8);}
+  .progress-label{display:flex;justify-content:space-between;font-size:.76rem;color:var(--muted);}
+  .debt-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+  .debt-meta-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .debt-meta-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+  .debt-meta-value{font-family:'Unbounded',sans-serif;font-size:.9rem;font-weight:700;}
+  .debt-note{margin-top:16px;font-size:.82rem;color:var(--muted);font-style:italic;}
+
+  /* CHARTS */
+  .charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;}
+  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;}
+  .chart-card canvas{max-height:280px;}
+  .donut-card-title{font-family:'Unbounded',sans-serif;font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+  .donut-card-sub{font-size:.75rem;color:var(--muted);margin-bottom:16px;}
+  .donut-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
+  .donut-center{position:absolute;text-align:center;pointer-events:none;}
+  .dc-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  .dc-value{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin:4px 0;}
+  .dc-pct{font-size:.7rem;color:var(--muted);}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:.8rem;}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .legend-label{color:var(--muted);flex:1;}
+  .legend-value{color:var(--text);font-weight:600;}
+
+  /* MILESTONES */
+  .milestone-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+  .milestone-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;text-align:center;position:relative;overflow:hidden;}
+  .milestone-card .m-icon{font-size:2.5rem;margin-bottom:12px;display:block;}
+  .milestone-card .m-title{font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .milestone-card .m-amount{font-size:1.1rem;font-weight:600;margin-bottom:4px;}
+  .milestone-card .m-date{font-size:.78rem;color:var(--muted);}
+  .milestone-card.achieved{border-color:var(--lime);background:linear-gradient(135deg,rgba(200,245,68,.08),var(--surface));}
+  .milestone-card.achieved .m-amount{color:var(--lime);}
+  .milestone-card.upcoming .m-amount{color:var(--cyan);}
+  .milestone-card.future .m-amount{color:var(--muted);}
+
+  /* TABLE */
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:500px;}
+  thead tr th{text-align:left;padding:10px 14px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:500;border-bottom:1px solid var(--border);}
+  tbody tr td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover td{background:rgba(255,255,255,.03);}
+  .td-green{color:var(--lime);font-weight:600;}
+  .td-cyan{color:var(--cyan);font-weight:600;}
+  .td-muted{color:var(--muted);}
+  .latest-row td{background:rgba(0,245,212,.04);}
+
+  /* CALCULATOR */
+  .calculator-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+  @media(max-width:700px){.calc-grid{grid-template-columns:1fr;}}
+  .input-group{margin-bottom:20px;}
+  .input-group label{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:8px;}
+  .input-group input,.input-group select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;outline:none;transition:border-color .2s;}
+  .input-group input:focus,.input-group select:focus{border-color:var(--lime);}
+  .input-group select option{background:var(--surface2);}
+  .calc-btn{width:100%;background:linear-gradient(135deg,var(--lime),var(--cyan));border:none;border-radius:12px;padding:14px;font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:700;color:#0a0a12;cursor:pointer;transition:transform .2s,box-shadow .2s;letter-spacing:.05em;text-transform:uppercase;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(200,245,68,.3);}
+  .calc-results{display:grid;gap:16px;}
+  .result-item{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .result-item .r-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+  .result-item .r-value{font-family:'Unbounded',sans-serif;font-size:1.4rem;font-weight:700;}
+  .result-item .r-value.green{color:var(--lime);}
+  .result-item .r-value.red{color:var(--pink);}
+  .result-item .r-value.cyan{color:var(--cyan);}
+  .result-item .r-sub{font-size:.8rem;color:var(--muted);margin-top:4px;}
+
+  /* PROJECTION */
+  .projection-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:28px;}
+  .projection-intro{font-size:.82rem;color:var(--muted);line-height:1.6;border-left:3px solid var(--cyan);padding-left:14px;}
+  .proj-row{display:grid;grid-template-columns:200px 1fr 160px;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+  .proj-row:last-child{border-bottom:none;}
+  .proj-debt-name{font-family:'Unbounded',sans-serif;font-size:.68rem;font-weight:700;color:var(--text);}
+  .proj-debt-meta{font-size:.72rem;color:var(--muted);margin-top:3px;}
+  .proj-bar-wrap{background:rgba(255,255,255,.04);border-radius:8px;height:32px;overflow:hidden;}
+  .proj-bar{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:12px;font-size:.7rem;font-weight:700;color:rgba(0,0,0,.7);transition:width 1.2s cubic-bezier(.16,1,.3,1);white-space:nowrap;overflow:hidden;min-width:4px;}
+  .proj-date-col{text-align:right;}
+  .proj-payoff-date{font-family:'Unbounded',sans-serif;font-size:.78rem;font-weight:700;}
+  .proj-months-away{font-size:.7rem;color:var(--muted);margin-top:3px;}
+  .proj-interest-saved{font-size:.68rem;color:var(--pink);margin-top:2px;}
+  .projection-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;padding-top:4px;border-top:1px solid var(--border);}
+  .proj-summary-stat{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+  .proj-summary-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+  .proj-summary-value{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;}
+
+  /* BRIEF */
+  .brief-wrap{display:flex;flex-direction:column;gap:20px;}
+  .brief-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .brief-stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+  .brief-stat{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+  .brief-stat-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+  .brief-stat-value{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;}
+  .brief-how-to{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:20px 24px;}
+  .brief-how-title{font-family:'Unbounded',sans-serif;font-size:.75rem;font-weight:700;color:var(--lime);margin-bottom:12px;}
+  .brief-how-steps{padding-left:18px;display:flex;flex-direction:column;gap:6px;}
+  .brief-how-steps li{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  .brief-how-steps code{background:rgba(200,245,68,.1);color:var(--lime);padding:1px 5px;border-radius:4px;font-size:.78rem;}
+  .brief-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px 28px;display:flex;flex-direction:column;gap:16px;}
+  .brief-card-title{font-family:'Unbounded',sans-serif;font-size:.82rem;font-weight:700;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .brief-item{display:flex;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--border);line-height:1.6;}
+  .brief-item:last-child{border-bottom:none;padding-bottom:0;}
+  .brief-item-num{font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .wins .brief-item-num{background:rgba(200,245,68,.15);color:var(--lime);}
+  .focus .brief-item-num{background:rgba(255,140,66,.15);color:var(--orange);}
+  .problems .brief-item-num{background:rgba(255,77,109,.15);color:var(--pink);}
+  .brief-item-text{font-size:.9rem;color:var(--text);}
+  .brief-item-sub{font-size:.78rem;color:var(--muted);margin-top:4px;}
+
+  /* CONFETTI */
+  .confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+  .confetti-piece{position:absolute;width:10px;height:10px;opacity:0;animation:fall 3s forwards;}
+  @keyframes fall{0%{opacity:1;transform:translateY(-20px) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+  @media(max-width:600px){header,main,.tab-nav{padding-left:20px;padding-right:20px;}.proj-row{grid-template-columns:1fr 1fr;}.proj-bar-wrap{display:none;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <h1>🎓 Jon &amp; Ali — Freedom Dashboard</h1>
+    <p>Student Loan Paydown Tracker · Nelnet · Standard Repayment</p>
+  </div>
+  <div class="date-badge">📅 Updated <span id="current-date"></span></div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard',event)">📊 Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('brief',event)">📋 Monthly Brief</button>
+</nav>
+
+<!-- DASHBOARD TAB -->
+<div id="tab-dashboard" class="tab-panel active">
+<main>
+
+  <!-- HERO STATS -->
+  <div class="section-block">
+    <div class="section-title">📊 Current Snapshot — March 2026</div>
+    <div class="hero-stats">
+      <div class="stat-card pink">
+        <div class="label">Combined Balance</div>
+        <div class="value">$216,490</div>
+        <div class="sub">Jon $197,945 · Ali $18,545</div>
+        <div class="emoji-bg">🎓</div>
+      </div>
+      <div class="stat-card lime">
+        <div class="label">Total Principal Paid</div>
+        <div class="value">$204,040</div>
+        <div class="sub">Jon $201,042 · Ali $2,998</div>
+        <div class="emoji-bg">💰</div>
+      </div>
+      <div class="stat-card yellow">
+        <div class="label">% Loans Eliminated</div>
+        <div class="value">48.7%</div>
+        <div class="sub">Of $418,612 combined original</div>
+        <div class="emoji-bg">🎯</div>
+      </div>
+      <div class="stat-card cyan">
+        <div class="label">Jon's Interest Paid</div>
+        <div class="value">$51,143</div>
+        <div class="sub">Of $252,186 total paid · 20% was interest</div>
+        <div class="emoji-bg">📈</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="label">Jon's Last Payment</div>
+        <div class="value">$2,161</div>
+        <div class="sub">Mar 6 regular + $26.6K lump sum Mar 2</div>
+        <div class="emoji-bg">⚡</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="label">Jon: Past The Halfway Mark</div>
+        <div class="value">50.6%</div>
+        <div class="sub">↓ $201K of $397K cleared 🥳</div>
+        <div class="emoji-bg">🎉</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FREEDOM TANKS -->
+  <div class="section-block">
+    <div class="section-title">🚀 Freedom Tanks</div>
+    <div class="dual-tank-card">
+
+      <div class="dual-tank-primary">
+        <div class="dual-tank-eyebrow">JON'S LOAN</div>
+        <div class="dual-tank-heading">Student Loan · Nelnet</div>
+        <div class="dual-tank-sub">Standard Repayment · Regular payments + aggressive lump sums 🔥</div>
+        <div class="dual-primary-body">
+          <div class="tank-wrap">
+            <div class="tank-title-label">PAYDOWN PROGRESS</div>
+            <div class="tank-vessel">
+              <div class="tank-nozzle"></div>
+              <div class="tank-body tank-body-lg">
+                <div class="tank-ticks">
+                  <div class="tick"><span>100%</span></div>
+                  <div class="tick"><span>75%</span></div>
+                  <div class="tick"><span>50%</span></div>
+                  <div class="tick"><span>25%</span></div>
+                  <div class="tick"><span>0%</span></div>
+                </div>
+                <div class="tank-fill-track">
+                  <div class="tank-fill tank-fill-primary" id="tank-fill-jon">
+                    <div class="tank-pct-label" id="tank-pct-jon">50.6%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tank-base"><div class="tank-base-line"></div></div>
+            </div>
+            <div class="tank-shadow"></div>
+          </div>
+          <div class="tank-stats">
+            <div class="tank-progress-rows">
+              <div class="tank-row"><div class="tank-row-label">Original Balance</div><div class="tank-row-value pink">$397,069</div></div>
+              <div class="tank-row"><div class="tank-row-label">Current Balance</div><div class="tank-row-value orange">$197,945</div></div>
+              <div class="tank-row"><div class="tank-row-label">Paid to Principal</div><div class="tank-row-value lime">$201,042</div></div>
+              <div class="tank-row"><div class="tank-row-label">% Complete</div><div class="tank-row-value cyan">50.6%</div></div>
+            </div>
+            <div class="tank-seg-label">Each block = $5,000 paid off</div>
+            <div class="tank-segments" id="tank-segments-jon"></div>
+            <div class="tank-motivator">🔥 Over halfway! Jon has crushed $201K in principal — more cleared than remains. Keep stacking those lump sums.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dual-tank-divider"></div>
+
+      <div class="dual-tank-secondary">
+        <div class="dual-tank-eyebrow secondary-eye">ALI'S LOAN</div>
+        <div class="dual-tank-heading secondary-head">Student Loan · 4.74% APR</div>
+        <div class="dual-tank-sub">Steady $261/mo — Jon's payoff will supercharge this 📅</div>
+        <div class="dual-secondary-body">
+          <div class="tank-wrap">
+            <div class="tank-title-label">PAYDOWN PROGRESS</div>
+            <div class="tank-vessel">
+              <div class="tank-nozzle"></div>
+              <div class="tank-body tank-body-lg">
+                <div class="tank-ticks">
+                  <div class="tick"><span>100%</span></div>
+                  <div class="tick"><span>75%</span></div>
+                  <div class="tick"><span>50%</span></div>
+                  <div class="tick"><span>25%</span></div>
+                  <div class="tick"><span>0%</span></div>
+                </div>
+                <div class="tank-fill-track">
+                  <div class="tank-fill tank-fill-secondary" id="tank-fill-ali">
+                    <div class="tank-pct-label tank-pct-secondary" id="tank-pct-ali">13.9%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tank-base"><div class="tank-base-line tank-base-line-cyan"></div></div>
+            </div>
+            <div class="tank-shadow"></div>
+          </div>
+          <div class="tank-stats">
+            <div class="tank-progress-rows">
+              <div class="tank-row"><div class="tank-row-label">Original Balance</div><div class="tank-row-value pink">$21,543</div></div>
+              <div class="tank-row"><div class="tank-row-label">Current Balance</div><div class="tank-row-value orange">$18,545</div></div>
+              <div class="tank-row"><div class="tank-row-label">Paid to Principal</div><div class="tank-row-value cyan">$2,998</div></div>
+              <div class="tank-row"><div class="tank-row-label">% Complete</div><div class="tank-row-value lime">13.9%</div></div>
+            </div>
+            <div class="tank-seg-label">Each block = $500 paid off</div>
+            <div class="tank-segments" id="tank-segments-ali"></div>
+            <div class="tank-motivator sec-motivator">📅 Consistent payments at 4.74%. When Jon's loan is gone, the snowball hits this and it falls fast.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOAN CARDS -->
+  <div class="section-block">
+    <div class="section-title">🎯 Individual Loans</div>
+    <div class="debt-grid" id="debt-cards"></div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-block">
+    <div class="section-title">📉 Visual Progress</div>
+    <div class="charts-grid">
+      <div class="chart-card" style="grid-column:1/-1;">
+        <div class="donut-card-title" style="margin-bottom:4px;">Combined Balance — Dec 2025 → Mar 2026</div>
+        <div class="donut-card-sub" style="margin-bottom:16px;">Jon's lump sums are creating massive monthly drops. Hover for details.</div>
+        <canvas id="debtTrendChart" style="max-height:240px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="donut-card-title">Jon's Loan Progress</div>
+        <div class="donut-card-sub">Paid vs. Remaining</div>
+        <div class="donut-wrap">
+          <canvas id="pieChartJon"></canvas>
+          <div class="donut-center" id="donut-center-jon">
+            <div class="dc-label">Remaining</div>
+            <div class="dc-value">$197,945</div>
+            <div class="dc-pct">of $397,069 original</div>
+          </div>
+        </div>
+        <div class="donut-legend" id="legend-jon"></div>
+      </div>
+      <div class="chart-card">
+        <div class="donut-card-title">Ali's Loan Progress</div>
+        <div class="donut-card-sub">Paid vs. Remaining</div>
+        <div class="donut-wrap">
+          <canvas id="pieChartAli"></canvas>
+          <div class="donut-center" id="donut-center-ali">
+            <div class="dc-label">Remaining</div>
+            <div class="dc-value">$18,545</div>
+            <div class="dc-pct">of $21,543 original</div>
+          </div>
+        </div>
+        <div class="donut-legend" id="legend-ali"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MILESTONES -->
+  <div class="section-block">
+    <div class="section-title">🏆 Milestones</div>
+    <div class="milestone-grid" id="milestone-grid"></div>
+  </div>
+
+  <!-- PROJECTION -->
+  <div class="section-block">
+    <div class="section-title">📅 Payoff Projection</div>
+    <div class="projection-card">
+      <div class="projection-intro">
+        Based on current balances and regular payment amounts only — no lump sums assumed. Jon's actual lump-sum pace (~$25K/month) would eliminate his loan far sooner. Ali gets the snowball when Jon's done.
+      </div>
+      <div id="projection-timeline"></div>
+      <div class="projection-summary" id="projection-summary"></div>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="section-block">
+    <div class="section-title">🧮 Payoff Calculator</div>
+    <div class="calculator-card">
+      <div class="calc-grid">
+        <div>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px;line-height:1.6;">
+            Model what happens when you throw extra money at a loan. Every dollar extra <span style="color:var(--lime)">saves you interest</span> and moves the freedom date closer! 🔥
+          </p>
+          <div class="input-group">
+            <label>Choose Loan</label>
+            <select id="calc-debt" onchange="prefillCalc()">
+              <option value="jon">Jon's Student Loan — $197,945 @ ~7.25%</option>
+              <option value="ali">Ali's Student Loan — $18,545 @ 4.74%</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Current Balance ($)</label>
+            <input type="number" id="calc-balance" value="197945" step="100">
+          </div>
+          <div class="input-group">
+            <label>APR (%)</label>
+            <input type="number" id="calc-apr" value="7.25" step="0.1">
+          </div>
+          <div class="input-group">
+            <label>Monthly Payment ($)</label>
+            <input type="number" id="calc-payment" value="2161" step="25">
+          </div>
+          <div class="input-group">
+            <label>Extra Monthly Payment ($)</label>
+            <input type="number" id="calc-extra" value="619" step="25">
+          </div>
+          <button class="calc-btn" onclick="calculate()">Calculate Payoff ⚡</button>
+        </div>
+        <div class="calc-results" id="calc-results">
+          <div class="result-item">
+            <div class="r-label">🕐 Payoff Without Extra</div>
+            <div class="r-value red" id="res-months-base">—</div>
+            <div class="r-sub" id="res-date-base">Enter values and calculate</div>
+          </div>
+          <div class="result-item">
+            <div class="r-label">⚡ Payoff With Extra</div>
+            <div class="r-value green" id="res-months-extra">—</div>
+            <div class="r-sub" id="res-date-extra">See how much faster!</div>
+          </div>
+          <div class="result-item">
+            <div class="r-label">💸 Interest Without Extra</div>
+            <div class="r-value red" id="res-int-base">—</div>
+            <div class="r-sub">Total if no extra payments</div>
+          </div>
+          <div class="result-item">
+            <div class="r-label">💰 Interest Saved</div>
+            <div class="r-value cyan" id="res-int-saved">—</div>
+            <div class="r-sub" id="res-time-saved">Money back in your pocket!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORY TABLE -->
+  <div class="section-block">
+    <div class="section-title">📅 Monthly Tracking History</div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Jon's Loan</th>
+            <th>Ali's Loan</th>
+            <th>Combined</th>
+            <th>Est. Monthly Interest</th>
+            <th>Jon's Extra Payments</th>
+          </tr>
+        </thead>
+        <tbody id="monthly-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0 40px;color:var(--muted);font-size:.85rem;">
+    Made with 💚 · You're past the halfway point — keep crushing it! 🚀
+  </div>
+</main>
+</div>
+
+<!-- BRIEF TAB -->
+<div id="tab-brief" class="tab-panel">
+<main>
+  <div class="section-block" style="animation:none;opacity:1;">
+    <div class="brief-wrap">
+      <div class="brief-header">
+        <div>
+          <div class="section-title" style="margin-bottom:6px;">📋 Monthly Brief</div>
+          <div style="font-size:.82rem;color:var(--muted);">Wins, focus areas, and problems to solve each month.</div>
+        </div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:700;color:var(--lime)">March 2026</div>
+      </div>
+
+      <div class="brief-stats-row">
+        <div class="brief-stat"><div class="brief-stat-label">Jon's Balance</div><div class="brief-stat-value" style="color:var(--lime)">$197,945</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Ali's Balance</div><div class="brief-stat-value" style="color:var(--cyan)">$18,545</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Combined</div><div class="brief-stat-value" style="color:var(--pink)">$216,490</div></div>
+        <div class="brief-stat"><div class="brief-stat-label">Jon % Paid Off</div><div class="brief-stat-value" style="color:var(--orange)">50.6%</div></div>
+      </div>
+
+      <div class="brief-how-to">
+        <div class="brief-how-title">📝 How to update each month</div>
+        <ol class="brief-how-steps">
+          <li>Ask Claude: <em>"Generate a monthly debt brief for [Month]. Here's my data: [paste numbers]"</em></li>
+          <li>Copy the 3 wins, 3 focus areas, 2 problems from Claude's response</li>
+          <li>Open <code>index.html</code>, find <code>&lt;!-- BRIEF CONTENT START --&gt;</code> and replace the content</li>
+        </ol>
+      </div>
+
+      <!-- BRIEF CONTENT START -->
+      <div class="brief-card wins">
+        <div class="brief-card-title">🏆 3 Wins This Month</div>
+        <div class="brief-item">
+          <div class="brief-item-num">1</div>
+          <div>
+            <div class="brief-item-text"><strong>Jon Officially Past the Halfway Point</strong></div>
+            <div class="brief-item-sub">$201,042 paid to principal on a ~$397K original loan — Jon has now cleared more than half his balance. The remaining $197,945 is officially less than what's been paid off. A massive milestone.</div>
+          </div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-item-num">2</div>
+          <div>
+            <div class="brief-item-text"><strong>$26,613 March Lump Sum Applied</strong></div>
+            <div class="brief-item-sub">The March 2 payment of $26,613.54 knocked $25,552 off principal in a single transaction. Combined with the Mar 5 and Mar 6 regular payments, Jon shed roughly $28K this month. That's exceptional pace.</div>
+          </div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-item-num">3</div>
+          <div>
+            <div class="brief-item-text"><strong>Four Consecutive Months of Lump Sums</strong></div>
+            <div class="brief-item-sub">Dec: $36,627 to principal. Jan: $24,992. Feb: $23,884. Mar: $25,552. That's ~$111K of principal cleared in 4 months through extra payments alone. Discipline compounding in real time.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief-card focus">
+        <div class="brief-card-title">🎯 3 Things to Work On</div>
+        <div class="brief-item">
+          <div class="brief-item-num">1</div>
+          <div>
+            <div class="brief-item-text"><strong>Sustain the Lump Sum Cadence</strong></div>
+            <div class="brief-item-sub">At ~$25K/month in lump sums, Jon's loan could realistically be gone by late 2026 or early 2027. Every month this pace holds saves thousands in future interest. Make it automatic if possible — remove the friction.</div>
+          </div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-item-num">2</div>
+          <div>
+            <div class="brief-item-text"><strong>Plan the Snowball to Ali</strong></div>
+            <div class="brief-item-sub">When Jon's loan clears, $2,780+/month in regular payments frees up — immediately redirect it to Ali's $18,545 loan. At that rate plus Ali's current $261/mo, the loan would be gone in under 6 months.</div>
+          </div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-item-num">3</div>
+          <div>
+            <div class="brief-item-text"><strong>Watch the Accrued Interest</strong></div>
+            <div class="brief-item-sub">As of Mar 13, Nelnet shows $1,918.25 in unpaid accrued interest on Jon's account. This applies to the next payment before principal. Keep regular payments consistent to stay ahead of interest accrual.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief-card problems">
+        <div class="brief-card-title">⚠️ Things to Watch</div>
+        <div class="brief-item">
+          <div class="brief-item-num">1</div>
+          <div>
+            <div class="brief-item-text"><strong>$51K in Interest — the Cost of Time</strong></div>
+            <div class="brief-item-sub">Jon has paid $51,143 in interest to date. That's the price of time. The good news: aggressive paydown is dramatically reducing future interest. Each lump sum payment in 2026 is saving thousands that would have accrued over the remaining loan life.</div>
+          </div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-item-num">2</div>
+          <div>
+            <div class="brief-item-text"><strong>Ali's Loan at Minimum Only</strong></div>
+            <div class="brief-item-sub">Ali's $261/mo at 4.74% on $18,545 has a ~7 year payoff horizon at minimum payments. This is acceptable while Jon's loan is the priority — but have a plan to accelerate once the snowball arrives. Don't let this linger needlessly.</div>
+          </div>
+        </div>
+      </div>
+      <!-- BRIEF CONTENT END -->
+
+    </div>
+  </div>
+</main>
+</div>
+
+<div class="confetti-wrap" id="confetti-wrap"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+const JON_START   = 397069.23;
+const JON_CURRENT = 197945.17;
+const JON_PAID_P  = 201042.31;
+const JON_PAID_I  = 51143.31;
+const JON_APR     = 7.25; // estimated
+const JON_PMT     = 2161.40;
+const JON_EXTRA   = 619.03;
+
+const ALI_START   = 21543.24;
+const ALI_CURRENT = 18545.00;
+const ALI_PAID_P  = 2998.24;
+const ALI_APR     = 4.74;
+const ALI_PMT     = 261;
+
+const monthlyData = [
+  {month:"Oct 2024", jon:"—",        ali:"$21,543", total:"—",         int:"—",       extra:"—"},
+  {month:"Nov 2024", jon:"—",        ali:"$21,360", total:"—",         int:"—",       extra:"—"},
+  {month:"Dec 2024", jon:"—",        ali:"$21,179", total:"—",         int:"—",       extra:"—"},
+  {month:"Jan 2025", jon:"—",        ali:"$20,997", total:"—",         int:"—",       extra:"—"},
+  {month:"Feb 2025", jon:"—",        ali:"$20,807", total:"—",         int:"—",       extra:"—"},
+  {month:"Mar 2025", jon:"—",        ali:"$20,624", total:"—",         int:"—",       extra:"—"},
+  {month:"Apr 2025", jon:"—",        ali:"$20,437", total:"—",         int:"—",       extra:"—"},
+  {month:"May 2025", jon:"—",        ali:"$20,253", total:"—",         int:"—",       extra:"—"},
+  {month:"Jun 2025", jon:"—",        ali:"$20,065", total:"—",         int:"—",       extra:"—"},
+  {month:"Jul 2025", jon:"—",        ali:"$19,879", total:"—",         int:"—",       extra:"—"},
+  {month:"Aug 2025", jon:"—",        ali:"$19,692", total:"—",         int:"—",       extra:"—"},
+  {month:"Sep 2025", jon:"—",        ali:"$19,502", total:"—",         int:"—",       extra:"—"},
+  {month:"Oct 2025", jon:"—",        ali:"$19,314", total:"—",         int:"—",       extra:"—"},
+  {month:"Nov 2025", jon:"—",        ali:"$19,123", total:"—",         int:"—",       extra:"—"},
+  {month:"Dec 2025", jon:"$280,440", ali:"$18,933", total:"$299,373",  int:"~$1,720", extra:"$36,627 to principal"},
+  {month:"Jan 2026", jon:"$252,286", ali:"$18,743", total:"$271,029",  int:"~$1,560", extra:"$25,000 lump sum"},
+  {month:"Feb 2026", jon:"$226,071", ali:"$18,545", total:"$244,616",  int:"~$1,400", extra:"$23,884 to principal"},
+  {month:"Mar 2026 ⬅",jon:"$197,945",ali:"~$18,300",total:"~$216,245",int:"partial",  extra:"$25,552 to principal"},
+];
+
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('current-date').textContent =
+    new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  renderTanks();
+  renderDebtCards();
+  renderCharts();
+  renderTable();
+  renderMilestones();
+  renderProjection();
+  calculate();
+  setTimeout(fireConfetti, 800);
+});
+
+// ── TANKS ─────────────────────────────────────────────────────
+function renderTanks() {
+  const tankH = 260;
+  const jonPct = (JON_PAID_P / JON_START) * 100;
+  const aliPct = (ALI_PAID_P / ALI_START)  * 100;
+
+  const jf = document.getElementById('tank-fill-jon');
+  jf.style.height = '0px';
+  document.getElementById('tank-pct-jon').textContent = jonPct.toFixed(1)+'%';
+  setTimeout(()=>{ jf.style.height = Math.max(6,(jonPct/100)*tankH)+'px'; },400);
+
+  const af = document.getElementById('tank-fill-ali');
+  af.style.height = '0px';
+  document.getElementById('tank-pct-ali').textContent = aliPct.toFixed(1)+'%';
+  setTimeout(()=>{ af.style.height = Math.max(4,(aliPct/100)*tankH)+'px'; },600);
+
+  // Jon segments: $5K each
+  const jSeg=5000, jTotal=Math.ceil(JON_START/jSeg), jDone=Math.floor(JON_PAID_P/jSeg);
+  const jc = document.getElementById('tank-segments-jon');
+  for(let i=0;i<jTotal;i++){
+    const s=document.createElement('div');
+    s.className='seg-block '+(i<jDone?'done':'todo');
+    s.title=i<jDone?`✅ $${((i+1)*jSeg).toLocaleString()} cleared`:`$${((i+1)*jSeg).toLocaleString()} target`;
+    jc.appendChild(s);
+  }
+
+  // Ali segments: $500 each
+  const aSeg=500, aTotal=Math.ceil(ALI_START/aSeg), aDone=Math.floor(ALI_PAID_P/aSeg);
+  const ac = document.getElementById('tank-segments-ali');
+  for(let i=0;i<aTotal;i++){
+    const s=document.createElement('div');
+    s.className='seg-block '+(i<aDone?'done-cyan':'todo');
+    s.title=i<aDone?`✅ $${((i+1)*aSeg).toLocaleString()} cleared`:`$${((i+1)*aSeg).toLocaleString()} target`;
+    ac.appendChild(s);
+  }
+}
+
+// ── LOAN CARDS ────────────────────────────────────────────────
+function renderDebtCards() {
+  const loans=[
+    {
+      name:"Jon's Student Loan",badge:"badge-jon",badgeLabel:"Jon · Nelnet",color:"lime",
+      current:JON_CURRENT,start:JON_START,paid:JON_PAID_P,
+      payment:JON_PMT,apr:JON_APR,due:"6th (auto)",
+      sub:"28 payments to date · Standard Repayment",
+      note:"🔥 Over halfway — the remaining balance is smaller than what's already been paid!",
+      extra:"+ $619/mo regular · + ~$25K/mo lump sums"
+    },
+    {
+      name:"Ali's Student Loan",badge:"badge-ali",badgeLabel:"Ali",color:"cyan",
+      current:ALI_CURRENT,start:ALI_START,paid:ALI_PAID_P,
+      payment:ALI_PMT,apr:ALI_APR,due:"5th",
+      sub:"Standard Repayment · Down from $21,543",
+      note:"📅 Steady progress — Jon's snowball will demolish this when the time comes!",
+      extra:"Minimum payments now; snowball incoming"
+    }
+  ];
+
+  document.getElementById('debt-cards').innerHTML = loans.map(d => {
+    const pct = (d.paid/d.start*100).toFixed(1);
+    const monthlyInt = (d.current * d.apr/100/12).toFixed(0);
+    return `
+    <div class="debt-card">
+      <div class="debt-card-header">
+        <div><div class="debt-name">${d.name}</div><div class="debt-sub">${d.sub}</div></div>
+        <div class="debt-badge ${d.badge}">${d.badgeLabel}</div>
+      </div>
+      <div class="debt-amount">$${d.current.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+      <div class="debt-interest">Est. monthly interest: <strong>~$${parseInt(monthlyInt).toLocaleString()}</strong> · APR: ${d.apr}%${d.apr===JON_APR?' (est.)':''}</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar ${d.color}" style="width:${pct}%"></div>
+      </div>
+      <div class="progress-label"><span>${pct}% paid off</span><span>$${Math.round(d.paid).toLocaleString()} cleared</span></div>
+      <div class="debt-meta-grid">
+        <div class="debt-meta-item"><div class="debt-meta-label">Monthly Payment</div><div class="debt-meta-value" style="color:var(--${d.color})">$${d.payment.toLocaleString()}</div></div>
+        <div class="debt-meta-item"><div class="debt-meta-label">Due Date</div><div class="debt-meta-value" style="color:var(--muted)">${d.due}</div></div>
+        <div class="debt-meta-item"><div class="debt-meta-label">Original Balance</div><div class="debt-meta-value" style="color:var(--muted)">$${Math.round(d.start).toLocaleString()}</div></div>
+        <div class="debt-meta-item"><div class="debt-meta-label">Extra Payments</div><div class="debt-meta-value" style="color:var(--muted);font-size:.7rem;">${d.extra}</div></div>
+      </div>
+      <div class="debt-note">${d.note}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── CHARTS ────────────────────────────────────────────────────
+function renderCharts() {
+  const ttip = {
+    backgroundColor:'#12121f',borderColor:'rgba(255,255,255,.1)',borderWidth:1,
+    titleColor:'#f0f0f8',bodyColor:'#7a7a9a',padding:14,cornerRadius:10
+  };
+  const noLeg = {display:false};
+
+  function upCenter(id,label,value,pct){
+    const el=document.getElementById(id);if(!el)return;
+    el.querySelector('.dc-label').textContent=label;
+    el.querySelector('.dc-value').textContent=value;
+    el.querySelector('.dc-pct').textContent=pct;
+  }
+  function buildLeg(id,labels,colors,values){
+    const el=document.getElementById(id);if(!el)return;
+    el.innerHTML=labels.map((l,i)=>`
+      <div class="legend-item">
+        <div class="legend-dot" style="background:${colors[i]}"></div>
+        <div class="legend-label">${l}</div>
+        <div class="legend-value">$${values[i].toLocaleString()}</div>
+      </div>`).join('');
+  }
+
+  // Trend
+  const tLabels=["Dec '25","Jan '26","Feb '26","Mar '26"];
+  const jonT=[280440,252286,226071,197945];
+  const aliT=[18933,18743,18545,18300];
+  const comT=jonT.map((v,i)=>v+aliT[i]);
+  new Chart(document.getElementById('debtTrendChart').getContext('2d'),{
+    type:'line',
+    data:{labels:tLabels,datasets:[
+      {label:"Jon's Loan",data:jonT,borderColor:'#c8f544',backgroundColor:'rgba(200,245,68,.07)',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:'#c8f544',tension:.3,fill:true},
+      {label:"Ali's Loan",data:aliT,borderColor:'#00f5d4',backgroundColor:'rgba(0,245,212,.07)',borderWidth:2,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:'#00f5d4',tension:.3,fill:true},
+      {label:"Combined",data:comT,borderColor:'#ff4d6d',backgroundColor:'rgba(255,77,109,.04)',borderWidth:2,borderDash:[5,3],pointRadius:4,pointHoverRadius:7,pointBackgroundColor:'#ff4d6d',tension:.3,fill:false}
+    ]},
+    options:{responsive:true,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top',labels:{color:'#7a7a9a',font:{family:'DM Sans',size:11},boxWidth:12,padding:16}},
+        tooltip:{...ttip,callbacks:{label:ctx=>` ${ctx.dataset.label}: $${ctx.parsed.y.toLocaleString()}`}}},
+      scales:{x:{ticks:{color:'#7a7a9a',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{ticks:{color:'#7a7a9a',font:{size:10},callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.04)'}}}}
+  });
+
+  // Jon donut
+  const jLabels=['Paid to Principal','Remaining'];
+  const jVals=[Math.round(JON_PAID_P),Math.round(JON_CURRENT)];
+  const jColors=['#c8f544','rgba(200,245,68,.12)'];
+  new Chart(document.getElementById('pieChartJon').getContext('2d'),{
+    type:'doughnut',
+    data:{labels:jLabels,datasets:[{data:jVals,backgroundColor:jColors,borderWidth:3,borderColor:'#12121f',hoverBorderWidth:0,hoverOffset:14}]},
+    options:{responsive:true,cutout:'65%',plugins:{legend:noLeg,tooltip:{...ttip,callbacks:{label:ctx=>` $${ctx.parsed.toLocaleString()}`}}},
+      onHover:(evt,els)=>{
+        if(els.length){const i=els[0].index;upCenter('donut-center-jon',jLabels[i],'$'+jVals[i].toLocaleString(),((jVals[i]/JON_START)*100).toFixed(1)+'% of original');}
+        else upCenter('donut-center-jon','Remaining','$'+Math.round(JON_CURRENT).toLocaleString(),'of $'+Math.round(JON_START).toLocaleString()+' original');
+      }}
+  });
+  buildLeg('legend-jon',jLabels,jColors,jVals);
+
+  // Ali donut
+  const aLabels=['Paid to Principal','Remaining'];
+  const aVals=[Math.round(ALI_PAID_P),Math.round(ALI_CURRENT)];
+  const aColors=['#00f5d4','rgba(0,245,212,.12)'];
+  new Chart(document.getElementById('pieChartAli').getContext('2d'),{
+    type:'doughnut',
+    data:{labels:aLabels,datasets:[{data:aVals,backgroundColor:aColors,borderWidth:3,borderColor:'#12121f',hoverBorderWidth:0,hoverOffset:14}]},
+    options:{responsive:true,cutout:'65%',plugins:{legend:noLeg,tooltip:{...ttip,callbacks:{label:ctx=>` $${ctx.parsed.toLocaleString()}`}}},
+      onHover:(evt,els)=>{
+        if(els.length){const i=els[0].index;upCenter('donut-center-ali',aLabels[i],'$'+aVals[i].toLocaleString(),((aVals[i]/ALI_START)*100).toFixed(1)+'% of original');}
+        else upCenter('donut-center-ali','Remaining','$'+Math.round(ALI_CURRENT).toLocaleString(),'of $'+Math.round(ALI_START).toLocaleString()+' original');
+      }}
+  });
+  buildLeg('legend-ali',aLabels,aColors,aVals);
+}
+
+// ── TABLE ─────────────────────────────────────────────────────
+function renderTable(){
+  document.getElementById('monthly-table').innerHTML = monthlyData.map((r,i)=>{
+    const last = i===monthlyData.length-1;
+    return `<tr class="${last?'latest-row':''}">
+      <td>${last?'<strong>'+r.month+'</strong>':r.month}</td>
+      <td class="${r.jon!=='—'?'td-green':'td-muted'}">${r.jon}</td>
+      <td class="${r.ali!=='—'?'td-cyan':'td-muted'}">${r.ali}</td>
+      <td class="${r.total!=='—'&&r.total!=='partial'?'':'td-muted'}">${r.total}</td>
+      <td class="td-muted">${r.int}</td>
+      <td style="font-size:.8rem;" class="${r.extra!=='—'?'':'td-muted'}">${r.extra}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── MILESTONES ────────────────────────────────────────────────
+function renderMilestones(){
+  const ms=[
+    {icon:'🎉',status:'achieved',title:'Jon Over Halfway!',amount:'50.6% paid off',detail:'$201K of $397K original cleared'},
+    {icon:'💰',status:'achieved',title:'$252K Total Paid',amount:'$252,185 lifetime',detail:"Jon's paid over a quarter million dollars!"},
+    {icon:'📉',status:'achieved',title:'Jon Under $200K',amount:'$197,945 current',detail:'Crossed below $200K in March 2026 🔥'},
+    {icon:'🚀',status:'upcoming',title:'Jon Under $150K',amount:'$47,945 to go',detail:'At current lump-sum pace: ~2 months'},
+    {icon:'🏆',status:'upcoming',title:'Jon Under $100K',amount:'$97,945 to go',detail:'The sub-100K milestone — huge moment'},
+    {icon:'💡',status:'upcoming',title:"Ali Under $15K",amount:'$3,545 to go',detail:'At $261/mo: ~14 months at minimum'},
+    {icon:'🌟',status:'future',title:"Jon's Loan Gone",amount:'$197,945 remaining',detail:'Est. late 2026 at lump-sum pace'},
+    {icon:'🎓',status:'future',title:'Completely Debt Free',amount:'$216,490 remaining',detail:'Both loans at zero — celebrate big! 🎉'},
+  ];
+  document.getElementById('milestone-grid').innerHTML = ms.map(m=>`
+    <div class="milestone-card ${m.status}">
+      <span class="m-icon">${m.icon}</span>
+      <div class="m-title">${m.title}</div>
+      <div class="m-amount">${m.amount}</div>
+      <div class="m-date">${m.detail}</div>
+    </div>`).join('');
+}
+
+// ── PROJECTION ────────────────────────────────────────────────
+function renderProjection(){
+  const loans=[
+    {name:"Jon's Student Loan",balance:JON_CURRENT,payment:JON_PMT+JON_EXTRA,apr:JON_APR,color:'#c8f544'},
+    {name:"Ali's Student Loan",balance:ALI_CURRENT,payment:ALI_PMT,apr:ALI_APR,color:'#00f5d4'},
+  ];
+
+  function mtp(bal,pmt,apr){
+    const r=apr/100/12;if(r===0)return Math.ceil(bal/pmt);
+    const v=1-(r*bal)/pmt;if(v<=0)return 999;
+    return Math.ceil(-Math.log(v)/Math.log(1+r));
+  }
+  function tint(bal,pmt,apr){
+    const r=apr/100/12;let b=bal,tot=0,m=0;
+    while(b>0.01&&m<600){const i=b*r;tot+=i;b-=Math.min(pmt-i,b);m++;}
+    return tot;
+  }
+
+  const now=new Date(2026,2,1);
+  const container=document.getElementById('projection-timeline');
+  let maxM=0,totInt=0;
+  let cumExtra=0;
+
+  const results=loans.map((loan,i)=>{
+    const ep=loan.payment+cumExtra;
+    const months=mtp(loan.balance,ep,loan.apr);
+    const interest=tint(loan.balance,ep,loan.apr);
+    const pd=new Date(now);pd.setMonth(pd.getMonth()+months);
+    totInt+=interest;if(months>maxM)maxM=months;
+    cumExtra+=loan.payment;
+    return{...loan,ep,months,interest,pd};
+  });
+
+  container.innerHTML='';
+  results.forEach((r,i)=>{
+    const barPct=Math.max(4,(r.months/maxM)*100);
+    const mo=r.pd.toLocaleString('en-US',{month:'short',year:'numeric'});
+    const y=Math.floor(r.months/12),m=r.months%12;
+    const tl=y>0?`${y}y ${m}m away`:`${m} months away`;
+    const sn=i>0?` (+$${Math.round(results.slice(0,i).reduce((a,x)=>a+x.payment,0)).toLocaleString()} snowball)`:'';
+    const row=document.createElement('div');
+    row.className='proj-row';
+    row.innerHTML=`
+      <div>
+        <div class="proj-debt-name">${r.name}</div>
+        <div class="proj-debt-meta">$${Math.round(r.balance).toLocaleString()} · ${r.apr}%${r.apr===JON_APR?' est.':''}${sn}</div>
+      </div>
+      <div class="proj-bar-wrap">
+        <div class="proj-bar" data-width="${barPct}" style="width:0%;background:${r.color}">
+          $${Math.round(r.ep).toLocaleString()}/mo
+        </div>
+      </div>
+      <div class="proj-date-col">
+        <div class="proj-payoff-date" style="color:${r.color}">${mo}</div>
+        <div class="proj-months-away">${tl}</div>
+        <div class="proj-interest-saved">$${Math.round(r.interest).toLocaleString()} more interest</div>
+      </div>`;
+    container.appendChild(row);
+  });
+
+  setTimeout(()=>{document.querySelectorAll('.proj-bar').forEach(b=>{b.style.width=b.dataset.width+'%';});},400);
+
+  const last=results[results.length-1];
+  const fd=last.pd.toLocaleString('en-US',{month:'long',year:'numeric'});
+  document.getElementById('projection-summary').innerHTML=[
+    {label:'Both Loans Free',value:fd,color:'var(--lime)'},
+    {label:'Total Months',value:last.months+' months',color:'var(--cyan)'},
+    {label:'Interest Still Owed',value:'$'+Math.round(totInt).toLocaleString(),color:'var(--pink)'},
+    {label:"Jon's Payoff Est.",value:results[0].pd.toLocaleString('en-US',{month:'short',year:'numeric'}),color:'var(--orange)'},
+  ].map(s=>`
+    <div class="proj-summary-stat">
+      <div class="proj-summary-label">${s.label}</div>
+      <div class="proj-summary-value" style="color:${s.color}">${s.value}</div>
+    </div>`).join('');
+}
+
+// ── CALCULATOR ────────────────────────────────────────────────
+function prefillCalc(){
+  const v=document.getElementById('calc-debt').value;
+  if(v==='jon'){
+    document.getElementById('calc-balance').value=197945;
+    document.getElementById('calc-apr').value=7.25;
+    document.getElementById('calc-payment').value=2161;
+    document.getElementById('calc-extra').value=619;
+  } else {
+    document.getElementById('calc-balance').value=18545;
+    document.getElementById('calc-apr').value=4.74;
+    document.getElementById('calc-payment').value=261;
+    document.getElementById('calc-extra').value=100;
+  }
+}
+
+function calculate(){
+  const bal=parseFloat(document.getElementById('calc-balance').value)||0;
+  const apr=parseFloat(document.getElementById('calc-apr').value)||0;
+  const pmt=parseFloat(document.getElementById('calc-payment').value)||0;
+  const ext=parseFloat(document.getElementById('calc-extra').value)||0;
+
+  function sim(b,p,a){
+    const r=a/100/12;let bal=b,m=0,ti=0;
+    while(bal>0.01&&m<1200){const i=bal*r;if(p<=i)return null;ti+=i;bal-=Math.min(p-i,bal);m++;}
+    return{months:m,totalInt:ti};
+  }
+
+  const base=sim(bal,pmt,apr);
+  const extr=sim(bal,pmt+ext,apr);
+  if(!base)return;
+
+  function ml(m){const y=Math.floor(m/12),mo=m%12;return y>0?`${y} yr${y>1?'s':''} ${mo} mo`:`${mo} months`;}
+  function dl(m){const d=new Date(2026,2,1);d.setMonth(d.getMonth()+m);return d.toLocaleString('en-US',{month:'long',year:'numeric'});}
+
+  document.getElementById('res-months-base').textContent=ml(base.months);
+  document.getElementById('res-date-base').textContent='Done: '+dl(base.months);
+  document.getElementById('res-int-base').textContent='$'+Math.round(base.totalInt).toLocaleString();
+
+  if(ext>0&&extr){
+    const saved=base.totalInt-extr.totalInt;
+    const mSaved=base.months-extr.months;
+    document.getElementById('res-months-extra').textContent=ml(extr.months);
+    document.getElementById('res-date-extra').textContent='Done: '+dl(extr.months);
+    document.getElementById('res-int-saved').textContent='$'+Math.round(saved).toLocaleString();
+    document.getElementById('res-time-saved').textContent=mSaved+' months sooner!';
+  } else {
+    document.getElementById('res-months-extra').textContent='Enter extra amount';
+    document.getElementById('res-date-extra').textContent='';
+    document.getElementById('res-int-saved').textContent='—';
+    document.getElementById('res-time-saved').textContent='';
+  }
+}
+
+// ── TABS ──────────────────────────────────────────────────────
+function switchTab(name,evt){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(evt&&evt.currentTarget)evt.currentTarget.classList.add('active');
+}
+
+// ── CONFETTI ──────────────────────────────────────────────────
+function fireConfetti(){
+  const wrap=document.getElementById('confetti-wrap');
+  const colors=['#c8f544','#00f5d4','#ff4d6d','#ffe347','#9b5de5'];
+  for(let i=0;i<60;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}%;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-delay:${Math.random()*2}s;animation-duration:${2+Math.random()*2}s;`;
+    wrap.appendChild(p);
+  }
+  setTimeout(()=>{wrap.innerHTML='';},5000);
+}
+</script>
+</body>
+</html>
